@@ -1,6 +1,7 @@
 package com.jsonxia.wiki.controller;
 
 import com.jsonxia.wiki.domain.Ebook;
+import com.jsonxia.wiki.req.EbookReq;
 import com.jsonxia.wiki.resp.CommonResp;
 import com.jsonxia.wiki.service.EbookService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,9 +27,9 @@ public class EbookController {
 
 
     @GetMapping("/list")
-    public CommonResp list(){
+    public CommonResp list(EbookReq req){
         CommonResp<List<Ebook>> resp = new CommonResp<>();
-        List<Ebook> list = ebookService.list();
+        List<Ebook> list = ebookService.list(req);
         resp.setContent(list);
         return resp;
     }

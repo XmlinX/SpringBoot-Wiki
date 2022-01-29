@@ -1,7 +1,9 @@
 package com.jsonxia.wiki.service;
 
 import com.jsonxia.wiki.domain.Ebook;
+import com.jsonxia.wiki.domain.EbookExample;
 import com.jsonxia.wiki.mapper.EbookMapper;
+import com.jsonxia.wiki.req.EbookReq;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -21,8 +23,11 @@ public class EbookService {
     private EbookMapper ebookMapper;
 
 
-    public List<Ebook> list(){
-        return ebookMapper.selectByExample(null);
+    public List<Ebook> list(EbookReq req){
+        EbookExample ebookExample = new EbookExample();
+        EbookExample.Criteria criteria = ebookExample.createCriteria();
+        criteria.andNameLike("%" + req.getName() + "%");
+        return ebookMapper.selectByExample(ebookExample);
     }
 
 }
