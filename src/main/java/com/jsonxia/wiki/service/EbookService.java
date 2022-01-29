@@ -5,6 +5,7 @@ import com.jsonxia.wiki.domain.EbookExample;
 import com.jsonxia.wiki.mapper.EbookMapper;
 import com.jsonxia.wiki.req.EbookReq;
 import com.jsonxia.wiki.resp.EbookResp;
+import com.jsonxia.wiki.util.CopyUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -32,12 +33,17 @@ public class EbookService {
         criteria.andNameLike("%" + req.getName() + "%");
         List<Ebook> ebookList = ebookMapper.selectByExample(ebookExample);
 
-        List<EbookResp> respList = new ArrayList<>();
-        for (Ebook ebook : ebookList) {
-            EbookResp ebookResp = new EbookResp();
-            BeanUtils.copyProperties(ebook,ebookResp);
-            respList.add(ebookResp);
-        }
+//        List<EbookResp> respList = new ArrayList<>();
+//        for (Ebook ebook : ebookList) {
+////            EbookResp ebookResp = new EbookResp();
+////            BeanUtils.copyProperties(ebook,ebookResp);
+////            respList.add(ebookResp);
+              // 对象复制
+//            EbookResp ebookResp = CopyUtil.copy(ebook, EbookResp.class);
+//            respList.add(ebookResp);
+//        }
+        // 列表复制
+        List<EbookResp> respList = CopyUtil.copyList(ebookList, EbookResp.class);
         return respList;
     }
 
